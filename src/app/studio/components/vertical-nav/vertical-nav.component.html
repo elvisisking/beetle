@@ -1,0 +1,51 @@
+<div id="api-vertical-nav-wrapper">
+
+  <div id="api-nav-menu-shade" *ngIf="currentSubMenu != subMenuTypes.None" (click)="onShadeClick()">
+  </div>
+
+  <div id="api-vertical-nav">
+    <div id="api-nav-item-activities" class="api-nav-item" [class.active]="isActivitiesRoute()"
+         [class.selected]="currentSubMenu === subMenuTypes.Activities" (click)="toggleSubMenu(subMenuTypes.Activities)">
+      <span class="fa fa-fw fa-cog"></span>
+      <div>Activities</div>
+    </div>
+    <div id="api-nav-item-connections" class="api-nav-item" [class.active]="isConnectionsRoute()"
+         [class.selected]="currentSubMenu === subMenuTypes.Connections" (click)="toggleSubMenu(subMenuTypes.Connections)">
+      <span class="fa fa-fw fa-plug"></span>
+      <div>Connections</div>
+    </div>
+    <div class="api-nav-item-filler">
+    </div>
+  </div>
+
+  <div id="api-vertical-nav-details" [class.out]="subMenuOut">
+    <!-- Activities -->
+    <div id="api-nav-detail-activities" class="api-nav-detail-item" *ngIf="currentSubMenu === subMenuTypes.Activities">
+      <h3>Dashboard</h3>
+      <p>Click below to navigate back to the default BeETLe Studio dashboard.</p>
+      <ul>
+        <li><a routerLink="/">Back to Dashboard</a></li>
+      </ul>
+    </div>
+    <!-- Connections -->
+    <div id="api-nav-detail-connections" class="api-nav-detail-item" *ngIf="currentSubMenu === subMenuTypes.Connections">
+      <h3>Connections</h3>
+      <p class="description">Choose from the actions below or jump directly to one of your starred/favorited Connections.</p>
+      <h4 class="heading">Connection Actions</h4>
+      <div class="action">
+        <a routerLink="/connections"><span class="fa fa-fw fa-search"></span><span>List All Connections</span></a>
+      </div>
+      <div class="action">
+        <a routerLink="/connections/add-connection"><span class="fa fa-fw fa-plus"></span><span>Add Connection</span></a>
+      </div>
+
+      <!--
+      <h4 class="heading" *ngIf="(apis.getRecentApis() | async).length > 0">Recent APIs</h4>
+      <div *ngFor="let api of apis.getRecentApis() | async">
+        <a [routerLink]="['apis', api.id]"><span class="fa fa-fw fa-bolt"></span><span>{{ api.name }}</span></a>
+      </div>
+      -->
+    </div>
+  </div>
+
+</div>
