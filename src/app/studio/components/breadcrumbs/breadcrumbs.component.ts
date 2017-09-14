@@ -15,23 +15,15 @@
  * limitations under the License.
  */
 
-import {ModuleWithProviders} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-
-/* Pages */
-import {ConnectionsComponent} from './pages/connections/connections.component';
-import {AddConnectionComponent} from './pages/connections/add-connection/add-connection.component';
+import {Component} from '@angular/core';
 
 
-const _studioRoutes: any[] = [
-    {
-        path: 'connections',
-        component: ConnectionsComponent
-    },
-    {
-        path: 'connections/add-connection',
-        component: AddConnectionComponent
-    }
-];
+@Component({
+  moduleId: module.id,
+  selector: 'breadcrumbs',
+  templateUrl: 'breadcrumbs.component.html',
+  styleUrls: ['breadcrumbs.component.css']
+})
+export class BreadcrumbsComponent {
 
-export const StudioRouting: ModuleWithProviders = RouterModule.forRoot(_studioRoutes);
+}

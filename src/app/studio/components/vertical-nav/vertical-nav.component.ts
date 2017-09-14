@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router, NavigationStart} from "@angular/router";
+import {Router, NavigationStart} from '@angular/router';
 
 /**
  * Models the sub-menus off the main left-hand vertical nav.
@@ -9,6 +9,7 @@ enum VerticalNavSubMenuType {
 }
 
 @Component({
+  moduleId: module.id,
   selector: 'app-vertical-nav',
   templateUrl: './vertical-nav.component.html',
   styleUrls: ['./vertical-nav.component.less']
@@ -18,13 +19,13 @@ export class VerticalNavComponent implements OnInit {
 
     public subMenuTypes: any = VerticalNavSubMenuType;
     public currentSubMenu: VerticalNavSubMenuType = VerticalNavSubMenuType.None;
-    public subMenuOut: boolean = false;
+    public subMenuOut = false;
 
     constructor(private router: Router) {
     }
 
     ngOnInit(): void {
-        console.log("Subscribing to router events.");
+        console.log('Subscribing to router events.');
         this.router.events.subscribe(event => {
             if (event instanceof NavigationStart) {
                 this.onShadeClick();
@@ -37,7 +38,7 @@ export class VerticalNavComponent implements OnInit {
      * @returns {boolean}
      */
     isActivitiesRoute(): boolean {
-        return this.router.isActive("/activities", true);
+        return this.router.isActive('/activities', true);
     }
 
     /**
@@ -45,7 +46,7 @@ export class VerticalNavComponent implements OnInit {
      * @returns {boolean}
      */
     isConnectionsRoute(): boolean {
-        return this.router.isActive("/connections", true);
+        return this.router.isActive('/connections', true);
     }
 
     /**
