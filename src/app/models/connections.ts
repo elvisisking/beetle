@@ -5,7 +5,7 @@ export class Connections {
     private items: Array< Connection >;
 
     add( connToAdd: Connection ): boolean {
-        const index = this.items.findIndex( conn => conn.name === connToAdd.name );
+        const index = this.items.findIndex( conn => conn.keng__id === connToAdd.keng__id );
 
         if ( index !== -1 ) {
             return false;
@@ -29,7 +29,7 @@ export class Connections {
             }
 
             // found
-            if ( conn.name === connectionName ) {
+            if ( conn.keng__id === connectionName ) {
                 found = true;
                 return false; // remove connection
             }
@@ -42,7 +42,7 @@ export class Connections {
 
     sorted(): Array< Connection > {
         return this.items.sort( ( thisConn, thatConn ): number => {
-            return thisConn.name.localeCompare( thatConn.name );
+            return thisConn.keng__id.localeCompare( thatConn.keng__id );
         });
     }
 

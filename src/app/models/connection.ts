@@ -1,18 +1,12 @@
 export class Connection {
 
-    name: string;
-    jndiName: string;
-    driverName: string;
+    keng__id: string;
+    dv__jndiName: string;
+    dv__driverName: string;
     props: Map< string, string >;
 
-    constructor( name: string,
-                 jndiName: string,
-                 driverName: string,
-                 props = new Map< string, string >() ) {
-        this.name = name;
-        this.jndiName = jndiName;
-        this.driverName = driverName;
-        this.props = props;
-    }
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
+  }
 
 }

@@ -3,11 +3,17 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-studio',
   templateUrl: './studio.component.html',
-  styleUrls: ['./studio.component.css']
+  styleUrls: ['./studio.component.less']
 })
 export class StudioComponent implements OnInit {
 
-  constructor() { }
+  routerOutletWrapperId: string;
+  routerOutletWrapperClass: string;
+
+  constructor() {
+    this.routerOutletWrapperId = 'studio-page-body';
+    this.routerOutletWrapperClass = '';
+  }
 
   ngOnInit() {
   }

@@ -1,3 +1,10 @@
-<p>
-  connections works!
-</p>
+<div style="margin-left: 150px">
+  <h2>Connections ListView</h2>
+  <p>Connections:</p>
+  <ul>
+    <li *ngFor="let connection of connections">
+      {{ connection.keng__id }} - (jndi: {{ connection.dv__jndiName }}, driver: {{ connection.dv__driverName}})
+    </li>
+  </ul>
+</div>
+
