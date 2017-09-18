@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import {Form, FormsModule} from '@angular/forms';
 
 import {StudioRouting} from './studio/studio.routing';
 import {ApiService} from './studio/services/api.service';
@@ -12,6 +13,8 @@ import { NavHeaderComponent } from './studio/components/nav-header/nav-header.co
 import { ConnectionsComponent } from './studio/pages/connections/connections.component';
 import { BreadcrumbsComponent } from './studio/components/breadcrumbs/breadcrumbs.component';
 import { BreadcrumbComponent } from './studio/components/breadcrumbs/breadcrumb/breadcrumb.component';
+import { ConnectionsListComponent } from './studio/pages/connections/connections-list/connections-list.component';
+import { ConnectionsCardsComponent } from './studio/pages/connections/connections-cards/connections-cards.component';
 
 @NgModule({
   declarations: [
@@ -21,10 +24,13 @@ import { BreadcrumbComponent } from './studio/components/breadcrumbs/breadcrumb/
     NavHeaderComponent,
     ConnectionsComponent,
     BreadcrumbsComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    ConnectionsListComponent,
+    ConnectionsCardsComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpModule,
     StudioRouting
   ],
