@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import {Http, Headers, RequestOptions} from '@angular/http';
 import { Connection } from '../../models/connection';
+import { NewConnection } from '../../models/new-connection';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -26,8 +27,34 @@ export class ApiService {
       .get(KOMODO_WORKSPACE_URL + '/connections', this.getAuthRequestOptions())
       .map(response => {
         const connections = response.json();
-        return connections.map((connection) => new Connection(connection));
+        return connections.map((connection) => {const conn = new Connection(); conn.setValues(connection); return conn; });
       })
+      .catch(this.handleError);
+  }
+
+  /**
+   * Create a connection via the komodo rest interface
+   * @param {NewConnection} connection
+   * @returns {Observable<Connection>}
+   */
+  public createConnection(connection: NewConnection): Observable<NewConnection> {
+    return this.http
+      .post(KOMODO_WORKSPACE_URL + '/connections/' + connection.name, connection, this.getAuthRequestOptions())
+      .map(response => {
+        return new Connection();
+      })
+      .catch(this.handleError);
+  }
+
+  /**
+   * Delete a connection via the komodo rest interface
+   * @param {NewConnection} connection
+   * @returns {Observable<Connection>}
+   */
+  public deleteConnection(connection: NewConnection): Observable<NewConnection> {
+    return this.http
+      .delete(KOMODO_WORKSPACE_URL + '/connections/' + connection.name, this.getAuthRequestOptions())
+      .map(response => null)
       .catch(this.handleError);
   }
 

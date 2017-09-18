@@ -7,9 +7,11 @@
       <div class="list-view-pf-body">
         <div class="list-view-pf-description">
           <div class="list-group-item-heading">
-            <a [routerLink]="[connection.id]">{{ connection.keng__id }}</a>
+            <a [routerLink]="[connection.keng__id]">{{ connection.keng__id }}</a>
           </div>
+          <!--
           <div class="list-group-item-text">{{ connection.description }}</div>
+          -->
         </div>
         <div class="list-view-pf-additional-info">
           <div class="connection-tags">
@@ -20,10 +22,12 @@
             <span class="connection-tags-label">Driver:</span>
             <span class="connection-tags-label">{{ connection.dv__driverName }}&nbsp;&nbsp;&nbsp;</span>
           </div>
+          <!--
           <div class="connection-tags" *ngIf="connection.tags && connection.tags.length > 0">
             <span class="connection-tags-label">Tags:</span>
             <span class="connection-tag" *ngFor="let tag of connection.tags" (click)="selectTag(tag, $event)">{{ tag }}</span>
           </div>
+          -->
         </div>
       </div>
     </div>
