@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 
 import {Connection} from '../../../models/connection';
+import {NewConnection} from '../../../models/new-connection';
 import {ApiService} from '../../services/api.service';
+import {ArrayUtils} from '../../util/common';
 
 class Filters {
   nameFilter: string;
@@ -45,9 +48,8 @@ export class ConnectionsComponent implements OnInit {
   filters: Filters = new Filters();
   dataloaded = false;
 
-  constructor(
-    private apiService: ApiService
-  ) {
+  constructor(private router: Router, private apiService: ApiService) {
+
   }
 
   public ngOnInit() {
@@ -56,6 +58,7 @@ export class ConnectionsComponent implements OnInit {
       .subscribe(
         (connections) => {
           this.allConnections = connections;
+          this.filteredConnections = this.filterConnections();
           this.dataloaded = true;
         }
       );
@@ -80,7 +83,7 @@ export class ConnectionsComponent implements OnInit {
       return rval;
     });
 
-    // this.selectedConnections = ArrayUtils.intersect(this.selectedConnections, this.filteredConnections);
+    this.selectedConnections = ArrayUtils.intersect(this.selectedConnections, this.filteredConnections);
 
     return this.filteredConnections;
   }
@@ -132,5 +135,34 @@ export class ConnectionsComponent implements OnInit {
 
   public onCardLayout(): void {
     this.filters.layout = 'card';
+  }
+
+  /**
+   * Called to delete all selected APIs.
+   */
+  public deleteConnection(): void {
+    const itemsToDelete: Connection[] = ArrayUtils.intersect(this.selectedConnections, this.filteredConnections);
+    const selectedConn = itemsToDelete[0];
+
+    const connectionToDelete: NewConnection = new NewConnection();
+    connectionToDelete.name = selectedConn.keng__id;
+
+    // Note: we can only delete selected items that we can see in the UI.
+    console.log('[ConnectionsPageComponent] Deleting selected Connection.');
+    this.apiService
+      .deleteConnection(connectionToDelete)
+      .subscribe(
+        () => {
+          this.removeConnectionFromList(selectedConn);
+          const link: string[] = [ '/connections' ];
+          console.log('[CreateApiPageComponent] Navigating to: %o', link);
+          this.router.navigate(link);
+        }
+      );
+  }
+
+  private removeConnectionFromList(connection: Connection) {
+    this.allConnections.splice(this.allConnections.indexOf(connection), 1);
+    this.filterConnections();
   }
 }
