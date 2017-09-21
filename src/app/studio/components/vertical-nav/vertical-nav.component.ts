@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Router, NavigationStart} from '@angular/router';
+import {Router, NavigationEnd} from '@angular/router';
 
 /**
- * Models the sub-menus off the main left-hand vertical nav.
+ * Models the menus off the main left-hand vertical nav.
  */
-enum VerticalNavSubMenuType {
-    None, Activities, Connections
+enum VerticalNavType {
+  Home, Activities, Connections
 }
 
 @Component({
@@ -17,20 +17,19 @@ enum VerticalNavSubMenuType {
 
 export class VerticalNavComponent implements OnInit {
 
-    public subMenuTypes: any = VerticalNavSubMenuType;
-    public currentSubMenu: VerticalNavSubMenuType = VerticalNavSubMenuType.None;
-    public subMenuOut = false;
+    public menuTypes: any = VerticalNavType;
+    public currentMenu: VerticalNavType = VerticalNavType.Home;
 
     constructor(private router: Router) {
     }
 
     ngOnInit(): void {
         console.log('Subscribing to router events.');
-        this.router.events.subscribe(event => {
-            if (event instanceof NavigationStart) {
-                this.onShadeClick();
+          this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+              this.onShadeClick();
             }
-        });
+          });
     }
 
     /**
@@ -38,7 +37,7 @@ export class VerticalNavComponent implements OnInit {
      * @returns {boolean}
      */
     isActivitiesRoute(): boolean {
-        return this.router.isActive('/activities', true);
+      return this.router.isActive('/activities', true);
     }
 
     /**
@@ -49,15 +48,35 @@ export class VerticalNavComponent implements OnInit {
         return this.router.isActive('/connections', true);
     }
 
-    /**
+   /**
      * Called when the user clicks the vertical menu shade (the grey shaded area behind the submenu div that
      * is displayed when a sub-menu is selected).  Clicking the shade makes the sub-menu div go away.
      */
     onShadeClick(): void {
+      /*
         this.subMenuOut = false;
         setTimeout(() => {
             this.currentSubMenu = VerticalNavSubMenuType.None;
         }, 180);
+        */
+    }
+
+    /**
+     * Called when the user clicks the vertical menu Activities item.
+     */
+    onActivitiesClick(): void {
+      this.currentMenu = VerticalNavType.Activities;
+      const link: string[] = [ '/activities' ];
+      this.router.navigate(link);
+    }
+
+    /**
+     * Called when the user clicks the vertical menu Connections item.
+     */
+    onConnectionsClick(): void {
+      this.currentMenu = VerticalNavType.Connections;
+      const link: string[] = [ '/connections' ];
+      this.router.navigate(link);
     }
 
     /**
@@ -65,6 +84,7 @@ export class VerticalNavComponent implements OnInit {
      * already selected, it de-selects it.
      * @param subMenu the sub-menu to toggle
      */
+    /*
     toggleSubMenu(subMenu: VerticalNavSubMenuType): void {
         if (this.subMenuOut && this.currentSubMenu === subMenu) {
             this.onShadeClick();
@@ -73,5 +93,6 @@ export class VerticalNavComponent implements OnInit {
             this.subMenuOut = true;
         }
     }
+    */
 
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import {Http, Headers, RequestOptions} from '@angular/http';
+import { Activity } from '../../models/activity';
+import { NewActivity } from '../../models/new-activity';
 import { Connection } from '../../models/connection';
 import { NewConnection } from '../../models/new-connection';
 import { Observable } from 'rxjs/Observable';
@@ -13,9 +15,79 @@ const KOMODO_WORKSPACE_URL = environment.komodoWorkspaceUrl;
 @Injectable()
 export class ApiService {
 
-  constructor(
-    private http: Http
-  ) {
+  activity1 = new Activity();
+  activity2 = new Activity();
+  activity3 = new Activity();
+  activities: Activity[] = [this.activity1, this.activity2, this.activity3];
+  newActivity1 = new NewActivity();
+
+  constructor( private http: Http ) {
+    this.activity1.keng__id = 'activity1';
+    this.activity1.dv__sourceConnection = 'activity1SrcConn';
+    this.activity1.dv__targetConnection = 'activity1TgtConn';
+    this.activity2.keng__id = 'activity2';
+    this.activity2.dv__sourceConnection = 'activity2SrcConn';
+    this.activity2.dv__targetConnection = 'activity2TgtConn';
+    this.activity3.keng__id = 'activity3';
+    this.activity3.dv__sourceConnection = 'activity3SrcConn';
+    this.activity3.dv__targetConnection = 'activity3TgtConn';
+    this.newActivity1.name = 'newActivity1';
+    this.newActivity1.sourceConnection.name = 'new1Src';
+    this.newActivity1.sourceConnection.jdbc = true;
+    this.newActivity1.sourceConnection.driverName = 'new1SrcDriver';
+    this.newActivity1.sourceConnection.jndiName = 'new1SrcJndi';
+    this.newActivity1.targetConnection.name = 'new1Tgt';
+    this.newActivity1.targetConnection.jdbc = false;
+    this.newActivity1.targetConnection.driverName = 'new1TgtDriver';
+    this.newActivity1.targetConnection.jndiName = 'new1TgtJndi';
+  }
+
+  /**
+   * Get the activities from the komodo rest interface
+   * @returns {Activity[]}
+   */
+  public getAllActivities(): Activity[] {
+    return this.activities;
+    /*
+    return this.http
+      .get(KOMODO_WORKSPACE_URL + '/activities', this.getAuthRequestOptions())
+      .map(response => {
+        const activities = response.json();
+        return activities.map((activity) => {const activ = new Activity(); activ.setValues(activity); return activ; });
+      })
+      .catch(this.handleError);
+      */
+  }
+
+  /**
+   * Create an activity via the komodo rest interface
+   * @param {NewActivity} activity
+   * @returns {Activity}
+   */
+  public createActivity(activity: NewActivity): NewActivity {
+    return this.newActivity1;
+    /*
+    return this.http
+      .post(KOMODO_WORKSPACE_URL + '/activities/' + activity.name, activity, this.getAuthRequestOptions())
+      .map(response => {
+        return new Activity();
+      })
+      .catch(this.handleError);
+      */
+  }
+
+  /**
+   * Delete an activity via the komodo rest interface
+   * @param {NewActivity} activity
+   */
+  public deleteActivity(activity: NewActivity): NewActivity {
+    /*
+    return this.http
+      .delete(KOMODO_WORKSPACE_URL + '/activities/' + activity.name, this.getAuthRequestOptions())
+      .map(response => null)
+      .catch(this.handleError);
+      */
+    return null;
   }
 
   /**

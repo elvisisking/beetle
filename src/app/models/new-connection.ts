@@ -12,8 +12,7 @@ export class NewConnection {
   constructor() {
   }
 
-  // hijack the toJSON method and overwrite the
-  // data that is sent back to the server
+  // overrides toJSON - we do not want the name supplied in the json body.
   public toJSON() {
     return {
       jndiName: this.jndiName,

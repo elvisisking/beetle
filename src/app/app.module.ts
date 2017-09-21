@@ -20,6 +20,11 @@ import { ConnectionsListComponent } from './studio/pages/connections/connections
 import { ConnectionsCardsComponent } from './studio/pages/connections/connections-cards/connections-cards.component';
 import { AddConnectionFormComponent } from './studio/pages/connections/add-connection/add-connection-form/add-connection-form.component';
 import { ConfirmDeleteComponent } from './studio/components/dialogs/confirm-delete/confirm-delete.component';
+import { ActivitiesComponent } from './studio/pages/activities/activities/activities.component';
+import { Ng2DragDropModule } from 'ng2-drag-drop';
+import { ActivitiesListComponent } from './studio/pages/activities/activities/activities-list/activities-list.component';
+import { ActivitiesCardsComponent } from './studio/pages/activities/activities/activities-cards/activities-cards.component';
+import { AddActivityComponent } from './studio/pages/activities/activities/add-activity/add-activity.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +38,11 @@ import { ConfirmDeleteComponent } from './studio/components/dialogs/confirm-dele
     ConnectionsListComponent,
     ConnectionsCardsComponent,
     AddConnectionFormComponent,
-    ConfirmDeleteComponent
+    ConfirmDeleteComponent,
+    ActivitiesComponent,
+    ActivitiesListComponent,
+    ActivitiesCardsComponent,
+    AddActivityComponent
   ],
   imports: [
     BrowserModule,
