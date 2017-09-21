@@ -21,17 +21,27 @@ import {Routes, RouterModule} from '@angular/router';
 /* Pages */
 import {ConnectionsComponent} from './pages/connections/connections.component';
 import {AddConnectionComponent} from './pages/connections/add-connection/add-connection.component';
+import {ActivitiesComponent} from './pages/activities/activities/activities.component';
+import {AddActivityComponent} from './pages/activities/activities/add-activity/add-activity.component';
 
 
 const _studioRoutes: any[] = [
-    {
-        path: 'connections',
-        component: ConnectionsComponent
-    },
-    {
-        path: 'connections/add-connection',
-        component: AddConnectionComponent
-    }
+  {
+    path: 'activities',
+    component: ActivitiesComponent
+  },
+  {
+    path: 'activities/add-activity',
+    component: AddActivityComponent
+  },
+  {
+    path: 'connections',
+    component: ConnectionsComponent
+  },
+  {
+    path: 'connections/add-connection',
+    component: AddConnectionComponent
+  }
 ];
 
 export const StudioRouting: ModuleWithProviders = RouterModule.forRoot(_studioRoutes);

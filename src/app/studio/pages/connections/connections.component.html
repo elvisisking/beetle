@@ -2,7 +2,7 @@
 
   <div id="connections-breadcrumb-bar">
     <breadcrumbs>
-      <li breadcrumb label="Connections" icon="plug" class="active"></li>
+      <li app-breadcrumb label="Connections" icon="plug" class="active"></li>
     </breadcrumbs>
   </div>
 
@@ -40,8 +40,10 @@
         </form>
         <div class="row toolbar-pf-results">
           <div class="col-sm-12">
-            <h5>{{ filteredConnections.length }} Connections found <a *ngIf="allConnections.length != filteredConnections.length"
-                                                               class="clear-filters" (click)="clearFilters()">(out of {{ allConnections.length }} total)</a></h5>
+            <h5>{{ filteredConnections.length }} Connections found
+              <a *ngIf="allConnections.length != filteredConnections.length"
+                 class="clear-filters" (click)="clearFilters()">(out of {{
+              allConnections.length }} total)</a></h5>
           </div>
         </div>
       </div>
@@ -101,9 +103,9 @@
       <!-- The list or card view -->
       <div class="col-md-12" *ngIf="isLoaded('connections')">
         <app-connections-list *ngIf="filters.layout === 'list'" [connections]="filteredConnections" [selectedConnections]="selectedConnections"
-                   (onConnectionSelected)="onSelected($event)" (onConnectionDeselected)="onDeselected($event)"></app-connections-list>
+                              (onConnectionSelected)="onSelected($event)" (onConnectionDeselected)="onDeselected($event)"></app-connections-list>
         <app-connections-cards *ngIf="filters.layout === 'card'" [connections]="filteredConnections" [selectedConnections]="selectedConnections"
-                    (onConnectionSelected)="onSelected($event)" (onConnectionDeselected)="onDeselected($event)"></app-connections-cards>
+                               (onConnectionSelected)="onSelected($event)" (onConnectionDeselected)="onDeselected($event)"></app-connections-cards>
       </div>
 
     </div>

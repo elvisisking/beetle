@@ -1,0 +1,32 @@
+<div style="margin-left: 150px">
+  <div id="activities-breadcrumb-bar">
+    <breadcrumbs>
+      <li app-breadcrumb label="Activities" icon="cog" [route]="[ '/activities' ]"></li>
+      <li app-breadcrumb label="Add Activity" icon="plus" class="active"></li>
+    </breadcrumbs>
+  </div>
+  <div class="container-fluid" *ngIf="!pageError">
+    <div class="col-md-12">
+      <div class="row">
+        <h2>Add Activity</h2>
+      </div>
+      <div class="row">
+        <h4>Creating New Activity '{{ activity.name }}'</h4>
+      </div>
+      <div class="row">
+          <div class="srcConnBox" draggable="true">
+            <h4>Source Conn</h4>
+            <div>Name: {{ activity.sourceConnection.name }}</div>
+            <div>JNDI: {{ activity.sourceConnection.jndiName }}</div>
+            <div>Driver: {{ activity.sourceConnection.driverName }}</div>
+          </div>
+          <div class="tgtConnBox" draggable="true">
+            <h4>Target Conn</h4>
+            <div>Name: {{ activity.targetConnection.name }}</div>
+            <div>JNDI: {{ activity.targetConnection.jndiName }}</div>
+            <div>Driver: {{ activity.targetConnection.driverName }}</div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
