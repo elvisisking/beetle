@@ -32,7 +32,7 @@ export class AddConnectionComponent implements OnInit {
       () => {
         this.form.creatingConnection = false;
         const link: string[] = [ '/connections' ];
-        console.log('[CreateApiPageComponent] Navigating to: %o', link);
+        console.log('[AddConnectionComponent] Navigating to: %o', link);
         this.router.navigate(link);
       }
     );
