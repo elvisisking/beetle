@@ -1,22 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NewActivity} from '../../../../../models/new-activity';
 import {AddActivityFormComponent} from './add-activity-form/add-activity-form.component';
 import {ApiService} from '../../../../services/api.service';
+import {AbstractPageComponent} from '../../../../components/abstract-page.component';
 
 @Component({
   selector: 'app-add-activity',
   templateUrl: './add-activity.component.html',
   styleUrls: ['./add-activity.component.css']
 })
-export class AddActivityComponent implements OnInit {
+export class AddActivityComponent extends AbstractPageComponent {
 
   @ViewChild(AddActivityFormComponent) form: AddActivityFormComponent;
 
-  constructor(private router: Router, private apiService: ApiService) {
-  }
-
-  ngOnInit() {
+  constructor(private router: Router, route: ActivatedRoute, private apiService: ApiService) {
+    super(route);
   }
 
   /**
