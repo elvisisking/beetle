@@ -3,6 +3,7 @@ import { NewConnection } from './new-connection';
 export class NewActivity {
 
   name: string;
+  description: string;
   sourceConnection: NewConnection = new NewConnection();
   targetConnection: NewConnection = new NewConnection();
 

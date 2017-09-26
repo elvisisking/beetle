@@ -49,10 +49,6 @@ export class ActivitiesComponent implements OnInit {
   filters: Filters = new Filters();
   dataloaded = false;
 
-  activity1 = new Activity();
-  activity2 = new Activity();
-  activity3 = new Activity();
-
   constructor(private router: Router, private apiService: ApiService) {
 
   }
@@ -148,6 +144,7 @@ export class ActivitiesComponent implements OnInit {
 
     // Note: we can only delete selected items that we can see in the UI.
     console.log('[ActivitiesPageComponent] Deleting selected Activity.');
+    this.apiService.deleteActivity(activityToDelete);
     /*
     this.apiService
       .deleteActivity(activityToDelete)

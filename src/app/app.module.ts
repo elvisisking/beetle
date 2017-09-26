@@ -25,6 +25,7 @@ import { Ng2DragDropModule } from 'ng2-drag-drop';
 import { ActivitiesListComponent } from './studio/pages/activities/activities/activities-list/activities-list.component';
 import { ActivitiesCardsComponent } from './studio/pages/activities/activities/activities-cards/activities-cards.component';
 import { AddActivityComponent } from './studio/pages/activities/activities/add-activity/add-activity.component';
+import { AddActivityFormComponent } from './studio/pages/activities/activities/add-activity/add-activity-form/add-activity-form.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AddActivityComponent } from './studio/pages/activities/activities/add-a
     ActivitiesComponent,
     ActivitiesListComponent,
     ActivitiesCardsComponent,
-    AddActivityComponent
+    AddActivityComponent,
+    AddActivityFormComponent
   ],
   imports: [
     BrowserModule,
