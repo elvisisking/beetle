@@ -7,7 +7,7 @@
       <div class="list-view-pf-body">
         <div class="list-view-pf-description">
           <div class="list-group-item-heading">
-            <a [routerLink]="[connection.keng__id]">{{ connection.keng__id }}</a>
+            <a [routerLink]="[connection.getId()]">{{ connection.getId() }}</a>
           </div>
           <!--
           <div class="list-group-item-text">{{ connection.description }}</div>
@@ -16,11 +16,11 @@
         <div class="list-view-pf-additional-info">
           <div class="connection-tags">
             <span class="connection-tags-label">JNDI:</span>
-            <span class="connection-tags-label">{{ connection.dv__jndiName }}&nbsp;&nbsp;&nbsp;</span>
+            <span class="connection-tags-label">{{ connection.getDriverName() }}&nbsp;&nbsp;&nbsp;</span>
           </div>
           <div class="connection-tags">
             <span class="connection-tags-label">Driver:</span>
-            <span class="connection-tags-label">{{ connection.dv__driverName }}&nbsp;&nbsp;&nbsp;</span>
+            <span class="connection-tags-label">{{ connection.getDriverName() }}&nbsp;&nbsp;&nbsp;</span>
           </div>
           <!--
           <div class="connection-tags" *ngIf="connection.tags && connection.tags.length > 0">

@@ -5,17 +5,17 @@
       <div class="card-pf card-pf-accented card-pf-aggregate-status connection-card" [class.active]="isSelected(connection)" (click)="toggleConnectionSelected(connection)">
         <h2 class="connection-card-title">
           <span class="fa fa-fw fa-plug connection-card-icon"></span>
-          <span><a [routerLink]="[connection.keng__id]">{{ connection.keng__id }}</a></span>
+          <span><a [routerLink]="[connection.getId()]">{{ connection.getId() }}</a></span>
         </h2>
         <div class="card-pf-body">
           <hr/>
           <div class="connection-tags">
             <span class="connection-tags-label">JNDI:</span>
-            <span class="connection-tags-label">{{ connection.dv__jndiName }}&nbsp;&nbsp;&nbsp;</span>
+            <span class="connection-tags-label">{{ connection.getJndiName() }}&nbsp;&nbsp;&nbsp;</span>
           </div>
           <div class="connection-tags">
             <span class="connection-tags-label">Driver:</span>
-            <span class="connection-tags-label">{{ connection.dv__driverName }}&nbsp;&nbsp;&nbsp;</span>
+            <span class="connection-tags-label">{{ connection.getDriverName() }}&nbsp;&nbsp;&nbsp;</span>
           </div>
           <!--
           <div class="connection-tags" *ngIf="connection.tags && connection.tags.length > 0">

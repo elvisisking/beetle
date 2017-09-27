@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import {Form, FormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 
 /* Bootstrap */
 import {ModalModule} from 'ngx-bootstrap';
@@ -21,7 +21,6 @@ import { ConnectionsCardsComponent } from './studio/pages/connections/connection
 import { AddConnectionFormComponent } from './studio/pages/connections/add-connection/add-connection-form/add-connection-form.component';
 import { ConfirmDeleteComponent } from './studio/components/dialogs/confirm-delete/confirm-delete.component';
 import { ActivitiesComponent } from './studio/pages/activities/activities/activities.component';
-import { Ng2DragDropModule } from 'ng2-drag-drop';
 import { ActivitiesListComponent } from './studio/pages/activities/activities/activities-list/activities-list.component';
 import { ActivitiesCardsComponent } from './studio/pages/activities/activities/activities-cards/activities-cards.component';
 import { AddActivityComponent } from './studio/pages/activities/activities/add-activity/add-activity.component';

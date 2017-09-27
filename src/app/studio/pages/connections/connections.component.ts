@@ -23,7 +23,7 @@ class Filters {
   }
 
   public accepts(connection: Connection): boolean {
-    const name: string = connection.keng__id.toLocaleLowerCase();
+    const name: string = connection.getId().toLocaleLowerCase();
     const namef: string = this.nameFilter.toLocaleLowerCase();
     return name.indexOf(namef) >= 0;
   }
@@ -80,7 +80,7 @@ export class ConnectionsComponent extends AbstractPageComponent {
       }
     }
     this.filteredConnections.sort( (c1: Connection, c2: Connection) => {
-      let rval: number = c1.keng__id.localeCompare(c2.keng__id);
+      let rval: number = c1.getId().localeCompare(c2.getId());
       if (this.filters.sortDirection === 'DESC') {
         rval *= -1;
       }
@@ -136,7 +136,7 @@ export class ConnectionsComponent extends AbstractPageComponent {
     const selectedConn = itemsToDelete[0];
 
     const connectionToDelete: NewConnection = new NewConnection();
-    connectionToDelete.name = selectedConn.keng__id;
+    connectionToDelete.name = selectedConn.getId();
 
     // Note: we can only delete selected items that we can see in the UI.
     console.log('[ConnectionsPageComponent] Deleting selected Connection.');
