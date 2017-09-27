@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {Connection} from '../../../models/connection';
 import {NewConnection} from '../../../models/new-connection';
 import {ApiService} from '../../services/api.service';
 import {ArrayUtils} from '../../util/common';
+import {AbstractPageComponent} from '../../components/abstract-page.component';
 
 class Filters {
   nameFilter: string;
@@ -14,7 +15,7 @@ class Filters {
   constructor(params?: any) {
     this.reset();
     if (params) {
-      for (const key in params) {
+      for (const key of Object.keys(params)) {
         const value: string = params[key];
         this[key] = value;
       }
@@ -40,26 +41,29 @@ class Filters {
   styleUrls: ['./connections.component.css'],
   providers: [ApiService]
 })
-export class ConnectionsComponent implements OnInit {
+export class ConnectionsComponent extends AbstractPageComponent {
 
   allConnections: Connection[] = [];
   filteredConnections: Connection[] = [];
   selectedConnections: Connection[] = [];
   filters: Filters = new Filters();
-  dataloaded = false;
 
-  constructor(private router: Router, private apiService: ApiService) {
-
+  constructor(private router: Router, route: ActivatedRoute, private apiService: ApiService) {
+    super(route);
   }
 
-  public ngOnInit() {
+  public loadAsyncPageData() {
     this.apiService
       .getAllConnections()
       .subscribe(
         (connections) => {
           this.allConnections = connections;
           this.filteredConnections = this.filterConnections();
-          this.dataloaded = true;
+          this.loaded('connections');
+        },
+        (error) => {
+          console.error('[ConnectionsComponent] Error getting connections.');
+          this.error(error);
         }
       );
   }
@@ -86,19 +90,6 @@ export class ConnectionsComponent implements OnInit {
     this.selectedConnections = ArrayUtils.intersect(this.selectedConnections, this.filteredConnections);
 
     return this.filteredConnections;
-  }
-
-  /**
-   * Called to determine whether page data has been loaded yet.
-   * @param key
-   * @return {boolean}
-   */
-  public isLoaded(key: string): boolean {
-    if (this.dataloaded) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   public onSelected(connection: Connection): void {

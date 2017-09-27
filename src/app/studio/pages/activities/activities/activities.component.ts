@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {Activity} from '../../../../models/activity';
 import {NewActivity} from '../../../../models/new-activity';
 import {ApiService} from '../../../services/api.service';
 import {ArrayUtils} from '../../../util/common';
+import {AbstractPageComponent} from '../../../components/abstract-page.component';
 
 class Filters {
   nameFilter: string;
@@ -14,7 +15,7 @@ class Filters {
   constructor(params?: any) {
     this.reset();
     if (params) {
-      for (const key in params) {
+      for (const key of Object.keys(params)) {
         const value: string = params[key];
         this[key] = value;
       }
@@ -41,22 +42,21 @@ class Filters {
   styleUrls: ['./activities.component.css'],
   providers: [ApiService]
 })
-export class ActivitiesComponent implements OnInit {
+export class ActivitiesComponent extends AbstractPageComponent {
 
   allActivities: Activity[] = [];
   filteredActivities: Activity[] = [];
   selectedActivities: Activity[] = [];
   filters: Filters = new Filters();
-  dataloaded = false;
 
-  constructor(private router: Router, private apiService: ApiService) {
-
+  constructor(private router: Router, route: ActivatedRoute, private apiService: ApiService) {
+    super(route);
   }
 
-  public ngOnInit() {
+  public loadAsyncPageData() {
     this.allActivities = this.apiService.getAllActivities();
     this.filteredActivities = this.filterActivities();
-    this.dataloaded = true;
+    this.loaded('activities');
   }
 
   /**
@@ -81,19 +81,6 @@ export class ActivitiesComponent implements OnInit {
     this.selectedActivities = ArrayUtils.intersect(this.selectedActivities, this.filteredActivities);
 
     return this.filteredActivities;
-  }
-
-  /**
-   * Called to determine whether page data has been loaded yet.
-   * @param key
-   * @return {boolean}
-   */
-  public isLoaded(key: string): boolean {
-    if (this.dataloaded) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   public onSelected(activity: Activity): void {

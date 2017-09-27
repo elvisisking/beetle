@@ -1,22 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NewConnection} from '../../../../models/new-connection';
 import {AddConnectionFormComponent} from './add-connection-form/add-connection-form.component';
 import {ApiService} from '../../../services/api.service';
+import {AbstractPageComponent} from '../../../components/abstract-page.component';
 
 @Component({
   selector: 'app-add-connection',
   templateUrl: './add-connection.component.html',
   styleUrls: ['./add-connection.component.css']
 })
-export class AddConnectionComponent implements OnInit {
+export class AddConnectionComponent extends AbstractPageComponent {
 
   @ViewChild(AddConnectionFormComponent) form: AddConnectionFormComponent;
 
-  constructor(private router: Router, private apiService: ApiService) {
-  }
-
-  ngOnInit() {
+  constructor(private router: Router, route: ActivatedRoute, private apiService: ApiService) {
+    super(route);
   }
 
   /**

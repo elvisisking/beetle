@@ -26,6 +26,7 @@ import { ActivitiesListComponent } from './studio/pages/activities/activities/ac
 import { ActivitiesCardsComponent } from './studio/pages/activities/activities/activities-cards/activities-cards.component';
 import { AddActivityComponent } from './studio/pages/activities/activities/add-activity/add-activity.component';
 import { AddActivityFormComponent } from './studio/pages/activities/activities/add-activity/add-activity-form/add-activity-form.component';
+import { PageErrorComponent } from './studio/components/page-error/page-error.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AddActivityFormComponent } from './studio/pages/activities/activities/a
     ActivitiesListComponent,
     ActivitiesCardsComponent,
     AddActivityComponent,
-    AddActivityFormComponent
+    AddActivityFormComponent,
+    PageErrorComponent
   ],
   imports: [
     BrowserModule,
