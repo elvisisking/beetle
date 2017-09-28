@@ -22,24 +22,28 @@ export class ApiService {
   newActivity1 = new NewActivity();
 
   constructor( private http: Http ) {
-    this.activity1.keng__id = 'activity1';
-    this.activity1.dv__sourceConnection = 'activity1SrcConn';
-    this.activity1.dv__targetConnection = 'activity1TgtConn';
-    this.activity2.keng__id = 'activity2';
-    this.activity2.dv__sourceConnection = 'activity2SrcConn';
-    this.activity2.dv__targetConnection = 'activity2TgtConn';
-    this.activity3.keng__id = 'activity3';
-    this.activity3.dv__sourceConnection = 'activity3SrcConn';
-    this.activity3.dv__targetConnection = 'activity3TgtConn';
-    this.newActivity1.name = 'newActivity1';
-    this.newActivity1.sourceConnection.name = 'new1Src';
-    this.newActivity1.sourceConnection.jdbc = true;
-    this.newActivity1.sourceConnection.driverName = 'new1SrcDriver';
-    this.newActivity1.sourceConnection.jndiName = 'new1SrcJndi';
-    this.newActivity1.targetConnection.name = 'new1Tgt';
-    this.newActivity1.targetConnection.jdbc = false;
-    this.newActivity1.targetConnection.driverName = 'new1TgtDriver';
-    this.newActivity1.targetConnection.jndiName = 'new1TgtJndi';
+    this.activity1.setId('activity1');
+    this.activity1.setSourceConnection('activity1SrcConn');
+    this.activity1.setTargetConnection('activity1TgtConn');
+    this.activity2.setId('activity2');
+    this.activity2.setSourceConnection('activity2SrcConn');
+    this.activity2.setTargetConnection('activity2TgtConn');
+    this.activity3.setId('activity3');
+    this.activity3.setSourceConnection('activity3SrcConn');
+    this.activity3.setTargetConnection('activity3TgtConn');
+    this.newActivity1.setName('newActivity1');
+    const srcConn = new NewConnection();
+    srcConn.setName('new1Src');
+    srcConn.setJndiName('new1SrcJndi');
+    srcConn.setDriverName('new1SrcDriver');
+    srcConn.setJdbc(true);
+    this.newActivity1.setSourceConnection(srcConn);
+    const tgtConn = new NewConnection();
+    tgtConn.setName('new1Tgt');
+    tgtConn.setJndiName('new1TgtJndi');
+    tgtConn.setDriverName('new1TgtDriver');
+    tgtConn.setJdbc(false);
+    this.newActivity1.setTargetConnection(tgtConn);
   }
 
   /**
@@ -111,7 +115,7 @@ export class ApiService {
    */
   public createConnection(connection: NewConnection): Observable<NewConnection> {
     return this.http
-      .post(KOMODO_WORKSPACE_URL + '/connections/' + connection.name, connection, this.getAuthRequestOptions())
+      .post(KOMODO_WORKSPACE_URL + '/connections/' + connection.getName(), connection, this.getAuthRequestOptions())
       .map(response => {
         return new Connection();
       })
@@ -125,7 +129,7 @@ export class ApiService {
    */
   public deleteConnection(connection: NewConnection): Observable<NewConnection> {
     return this.http
-      .delete(KOMODO_WORKSPACE_URL + '/connections/' + connection.name, this.getAuthRequestOptions())
+      .delete(KOMODO_WORKSPACE_URL + '/connections/' + connection.getName(), this.getAuthRequestOptions())
       .map(response => null)
       .catch(this.handleError);
   }

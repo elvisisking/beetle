@@ -23,6 +23,7 @@ import {ConnectionsComponent} from './pages/connections/connections.component';
 import {AddConnectionComponent} from './pages/connections/add-connection/add-connection.component';
 import {ActivitiesComponent} from './pages/activities/activities/activities.component';
 import {AddActivityComponent} from './pages/activities/activities/add-activity/add-activity.component';
+import {EditConnectionComponent} from './pages/connections/edit-connection/edit-connection.component';
 
 
 const _studioRoutes: any[] = [
@@ -41,6 +42,10 @@ const _studioRoutes: any[] = [
   {
     path: 'connections/add-connection',
     component: AddConnectionComponent
+  },
+  {
+    path: 'connections/edit-connection',
+    component: EditConnectionComponent
   }
 ];
 

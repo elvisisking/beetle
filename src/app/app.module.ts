@@ -26,6 +26,7 @@ import { ActivitiesCardsComponent } from './studio/pages/activities/activities/a
 import { AddActivityComponent } from './studio/pages/activities/activities/add-activity/add-activity.component';
 import { AddActivityFormComponent } from './studio/pages/activities/activities/add-activity/add-activity-form/add-activity-form.component';
 import { PageErrorComponent } from './studio/components/page-error/page-error.component';
+import { EditConnectionComponent } from './studio/pages/connections/edit-connection/edit-connection.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { PageErrorComponent } from './studio/components/page-error/page-error.co
     ActivitiesCardsComponent,
     AddActivityComponent,
     AddActivityFormComponent,
-    PageErrorComponent
+    PageErrorComponent,
+    EditConnectionComponent
   ],
   imports: [
     BrowserModule,

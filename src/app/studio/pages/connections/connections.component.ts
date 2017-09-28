@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {Connection} from '../../../models/connection';
@@ -6,6 +6,7 @@ import {NewConnection} from '../../../models/new-connection';
 import {ApiService} from '../../services/api.service';
 import {ArrayUtils} from '../../util/common';
 import {AbstractPageComponent} from '../../components/abstract-page.component';
+import {ConfirmDeleteComponent} from '../../components/dialogs/confirm-delete/confirm-delete.component';
 
 class Filters {
   nameFilter: string;
@@ -47,6 +48,9 @@ export class ConnectionsComponent extends AbstractPageComponent {
   filteredConnections: Connection[] = [];
   selectedConnections: Connection[] = [];
   filters: Filters = new Filters();
+  private connectionNameForDelete: string;
+
+  @ViewChild(ConfirmDeleteComponent) confirmDeleteDialog: ConfirmDeleteComponent;
 
   constructor(private router: Router, route: ActivatedRoute, private apiService: ApiService) {
     super(route);
@@ -93,13 +97,29 @@ export class ConnectionsComponent extends AbstractPageComponent {
   }
 
   public onSelected(connection: Connection): void {
-    // console.info("[ApisPageComponent] Caught the onApiSelected event!  Data: %o", connection);
+    // Only allow one item to be selected
+    this.selectedConnections.shift();
     this.selectedConnections.push(connection);
   }
 
   public onDeselected(connection: Connection): void {
-    // console.info("[ApisPageComponent] Caught the onApiDeselected event!  Data: %o", connection);
-    this.selectedConnections.splice(this.selectedConnections.indexOf(connection), 1);
+    // Only one item is selected at a time
+    this.selectedConnections.shift();
+    // this.selectedConnections.splice(this.selectedConnections.indexOf(connection), 1);
+  }
+
+  public onEdit(connName: string): void {
+    const link: string[] = [ '/connections/edit-connection' ];
+    this.router.navigate(link);
+  }
+
+  public onDelete(connName: string): void {
+    this.connectionNameForDelete = connName;
+    this.confirmDeleteDialog.open();
+  }
+
+  public onPing(connName: string): void {
+    alert('Ping connection ' + connName);
   }
 
   public isFiltered(): boolean {
@@ -132,11 +152,13 @@ export class ConnectionsComponent extends AbstractPageComponent {
    * Called to delete all selected APIs.
    */
   public deleteConnection(): void {
-    const itemsToDelete: Connection[] = ArrayUtils.intersect(this.selectedConnections, this.filteredConnections);
-    const selectedConn = itemsToDelete[0];
+    const selectedConn =  this.filterConnections().find(x => x.getId() === this.connectionNameForDelete);
+
+    // const itemsToDelete: Connection[] = ArrayUtils.intersect(this.selectedConnections, this.filteredConnections);
+    // const selectedConn = itemsToDelete[0];
 
     const connectionToDelete: NewConnection = new NewConnection();
-    connectionToDelete.name = selectedConn.getId();
+    connectionToDelete.setName(selectedConn.getId());
 
     // Note: we can only delete selected items that we can see in the UI.
     console.log('[ConnectionsPageComponent] Deleting selected Connection.');

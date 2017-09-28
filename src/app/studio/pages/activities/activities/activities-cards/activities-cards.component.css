@@ -8,6 +8,10 @@
 }
 
 
+.activity-card-action-icon {
+  cursor: pointer;
+}
+
 .activity-card-icon {
   border: 2px solid #39a5dc;
   border-radius: 50%;

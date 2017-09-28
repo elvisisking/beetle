@@ -16,6 +16,7 @@
  */
 
 import {Component, EventEmitter, Output, Input} from '@angular/core';
+import {Router} from '@angular/router';
 import {Connection} from '../../../../models/connection';
 
 
@@ -32,11 +33,14 @@ export class ConnectionsListComponent {
   @Output() onConnectionSelected: EventEmitter<Connection> = new EventEmitter<Connection>();
   @Output() onConnectionDeselected: EventEmitter<Connection> = new EventEmitter<Connection>();
   @Output() onTagSelected: EventEmitter<string> = new EventEmitter<string>();
+  @Output() onEditConnection: EventEmitter<string> = new EventEmitter<string>();
+  @Output() onPingConnection: EventEmitter<string> = new EventEmitter<string>();
+  @Output() onDeleteConnection: EventEmitter<string> = new EventEmitter<string>();
 
   /**
    * Constructor.
    */
-  constructor() {}
+  constructor(private router: Router) {}
 
   public toggleConnectionSelected(connection: Connection): void {
     if (this.isSelected(connection)) {
@@ -48,6 +52,18 @@ export class ConnectionsListComponent {
 
   public isSelected(connection: Connection): boolean {
     return this.selectedConnections.indexOf(connection) !== -1;
+  }
+
+  public pingConnection(connectionName: string): void {
+    this.onPingConnection.emit(connectionName);
+  }
+
+  public editConnection(connectionName: string): void {
+    this.onEditConnection.emit(connectionName);
+  }
+
+  public deleteConnection(connectionName: string): void {
+    this.onDeleteConnection.emit(connectionName);
   }
 
   public selectTag(tag: string, event: MouseEvent): void {

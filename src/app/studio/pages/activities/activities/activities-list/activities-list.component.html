@@ -7,7 +7,7 @@
       <div class="list-view-pf-body">
         <div class="list-view-pf-description">
           <div class="list-group-item-heading">
-            <a [routerLink]="[activity.keng__id]">{{ activity.keng__id }}</a>
+            <a [routerLink]="[activity.getId()]">{{ activity.getId() }}</a>
           </div>
           <!--
           <div class="list-group-item-text">{{ activity.description }}</div>
@@ -16,11 +16,11 @@
         <div class="list-view-pf-additional-info">
           <div class="activity-tags">
             <span class="activity-tags-label">Source:</span>
-            <span class="activity-tags-label">{{ activity.dv__sourceConnection }}&nbsp;&nbsp;&nbsp;</span>
+            <span class="activity-tags-label">{{ activity.getSourceConnection() }}&nbsp;&nbsp;&nbsp;</span>
           </div>
           <div class="activity-tags">
             <span class="activity-tags-label">Target:</span>
-            <span class="activity-tags-label">{{ activity.dv__targetConnection }}&nbsp;&nbsp;&nbsp;</span>
+            <span class="activity-tags-label">{{ activity.getTargetConnection() }}&nbsp;&nbsp;&nbsp;</span>
           </div>
           <!--
           <div class="activity-tags" *ngIf="activity.tags && activity.tags.length > 0">
@@ -29,6 +29,11 @@
           </div>
           -->
         </div>
+      </div>
+      <div class="list-view-pf-actions">
+        <button class="btn btn-primary" type="button" (click)="startActivity(activity.getId())">Start</button>
+        <button class="btn btn-default" type="button" (click)="editActivity(activity.getId())">Edit</button>
+        <button class="btn btn-danger" type="button" (click)="deleteActivity(activity.getId())">Delete</button>
       </div>
     </div>
   </div>
