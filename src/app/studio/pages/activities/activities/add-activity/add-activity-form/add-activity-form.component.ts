@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {Router} from '@angular/router';
 import {NewActivity} from '../../../../../../models/new-activity';
 
 @Component({
@@ -13,7 +14,7 @@ export class AddActivityFormComponent implements OnInit {
   model = new NewActivity();
   creatingActivity = false;
 
-  constructor() { }
+  constructor( private router: Router ) { }
 
   ngOnInit() {
   }
@@ -25,15 +26,20 @@ export class AddActivityFormComponent implements OnInit {
    */
   public createActivity(): void {
     const activity: NewActivity = new NewActivity();
-    activity.name = this.model.name;
-    activity.description = this.model.description;
-    activity.sourceConnection = this.model.sourceConnection;
-    activity.targetConnection = this.model.targetConnection;
+    activity.setName(this.model.getName());
+    activity.setDescription(this.model.getDescription());
+    activity.setSourceConnection(this.model.getSourceConnection());
+    activity.setTargetConnection(this.model.getTargetConnection());
 
     console.log('[AddActivityFormComponent] Firing create-activity event: %o', activity);
 
     this.creatingActivity = true;
     this.onCreateActivity.emit(activity);
+  }
+
+  public cancelAdd(): void {
+    const link: string[] = [ '/activities' ];
+    this.router.navigate(link);
   }
 
 }

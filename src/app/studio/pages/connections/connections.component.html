@@ -28,9 +28,6 @@
             </button>
           </div>
           <div class="form-group">
-            <button class="btn btn-danger" type="button" [disabled]="selectedConnections.length == 0" (click)="confirmDeleteDialog.open()">Delete</button>
-          </div>
-          <div class="form-group">
             <a class="btn btn-primary" [routerLink]="['/connections/add-connection']">Add Connection</a>
           </div>
           <div class="form-group toolbar-pf-view-selector">
@@ -93,8 +90,10 @@
       <!-- The list or card view -->
       <div class="col-md-12" *ngIf="isLoaded('connections')">
         <app-connections-list *ngIf="filters.layout === 'list'" [connections]="filteredConnections" [selectedConnections]="selectedConnections"
+                              (onEditConnection)="onEdit($event)" (onPingConnection)="onPing($event)" (onDeleteConnection)="onDelete($event)"
                               (onConnectionSelected)="onSelected($event)" (onConnectionDeselected)="onDeselected($event)"></app-connections-list>
         <app-connections-cards *ngIf="filters.layout === 'card'" [connections]="filteredConnections" [selectedConnections]="selectedConnections"
+                               (onEditConnection)="onEdit($event)" (onPingConnection)="onPing($event)" (onDeleteConnection)="onDelete($event)"
                                (onConnectionSelected)="onSelected($event)" (onConnectionDeselected)="onDeselected($event)"></app-connections-cards>
       </div>
 
@@ -103,16 +102,6 @@
   </div>
 
 </div>
-<app-confirm-delete #confirmDeleteDialog (onDelete)="deleteConnection()">
+<app-confirm-delete (onDelete)="deleteConnection()">
   <p>Do you really want to delete the selected Connection?</p>
-  <!-- <p *ngIf="selectedConnections.length === 1">Do you really want to delete the selected Connection?</p> -->
-  <!-- <p *ngIf="selectedConnections.length > 1">Do you really want to delete the <strong>{{ selectedConnections.length }}</strong> selected Connections?</p> -->
-
-  <!--
-  <div class="alert alert-info">
-    <span class="pficon pficon-info"></span>
-    <strong>NOTE:</strong>
-    <span>This will not delete the Connection - only from beetle Studio.</span>
-  </div>
-  -->
 </app-confirm-delete>

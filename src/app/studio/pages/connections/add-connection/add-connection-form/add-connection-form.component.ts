@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {Router} from '@angular/router';
 import {NewConnection} from '../../../../../models/new-connection';
 
 @Component({
@@ -13,7 +14,7 @@ export class AddConnectionFormComponent implements OnInit {
   model = new NewConnection();
   creatingConnection = false;
 
-  constructor() { }
+  constructor( private router: Router ) { }
 
   ngOnInit() {
   }
@@ -25,15 +26,20 @@ export class AddConnectionFormComponent implements OnInit {
    */
   public createConnection(): void {
     const connection: NewConnection = new NewConnection();
-    connection.name = this.model.name;
-    connection.jndiName = this.model.jndiName;
-    connection.driverName = this.model.driverName;
-    connection.jdbc = this.model.jdbc;
+    connection.setName(this.model.getName());
+    connection.setJndiName(this.model.getJndiName());
+    connection.setDriverName(this.model.getDriverName());
+    connection.setJdbc(this.model.isJdbc());
 
     console.log('[AddConnectionFormComponent] Firing create-connection event: %o', connection);
 
     this.creatingConnection = true;
     this.onCreateConnection.emit(connection);
+  }
+
+  public cancelAdd(): void {
+    const link: string[] = [ '/connections' ];
+    this.router.navigate(link);
   }
 
 }

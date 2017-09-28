@@ -28,9 +28,6 @@
             </button>
           </div>
           <div class="form-group">
-            <button class="btn btn-danger" type="button" [disabled]="selectedActivities.length == 0" (click)="confirmDeleteDialog.open()">Delete</button>
-          </div>
-          <div class="form-group">
             <a class="btn btn-primary" [routerLink]="['/activities/add-activity']">Add Activity</a>
           </div>
           <div class="form-group toolbar-pf-view-selector">
@@ -93,9 +90,11 @@
       <!-- The list or card view -->
       <div class="col-md-12" *ngIf="isLoaded('activities')">
         <app-activities-list *ngIf="filters.layout === 'list'" [activities]="filteredActivities" [selectedActivities]="selectedActivities"
-                              (onActivitySelected)="onSelected($event)" (onActivityDeselected)="onDeselected($event)"></app-activities-list>
+                             (onEditActivity)="onEdit($event)" (onStartActivity)="onStart($event)" (onDeleteActivity)="onDelete($event)"
+                             (onActivitySelected)="onSelected($event)" (onActivityDeselected)="onDeselected($event)"></app-activities-list>
         <app-activities-cards *ngIf="filters.layout === 'card'" [activities]="filteredActivities" [selectedActivities]="selectedActivities"
-                               (onActivitySelected)="onSelected($event)" (onActivityDeselected)="onDeselected($event)"></app-activities-cards>
+                              (onEditActivity)="onEdit($event)" (onStartActivity)="onStart($event)" (onDeleteActivity)="onDelete($event)"
+                              (onActivitySelected)="onSelected($event)" (onActivityDeselected)="onDeselected($event)"></app-activities-cards>
       </div>
 
     </div>
@@ -105,14 +104,4 @@
 </div>
 <app-confirm-delete #confirmDeleteDialog (onDelete)="deleteActivity()">
   <p>Do you really want to delete the selected Activity?</p>
-  <!-- <p *ngIf="selectedActivities.length === 1">Do you really want to delete the selected Activity?</p> -->
-  <!-- <p *ngIf="selectedActivities.length > 1">Do you really want to delete the <strong>{{ selectedActivities.length }}</strong> selected Activities?</p> -->
-
-  <!--
-  <div class="alert alert-info">
-    <span class="pficon pficon-info"></span>
-    <strong>NOTE:</strong>
-    <span>This will not delete the Activity - only from beetle Studio.</span>
-  </div>
-  -->
 </app-confirm-delete>

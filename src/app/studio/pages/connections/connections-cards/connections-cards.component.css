@@ -7,6 +7,9 @@
   padding: 0;
 }
 
+.connection-card-action-icon {
+  cursor: pointer;
+}
 
 .connection-card-icon {
   border: 2px solid #39a5dc;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {Activity} from '../../../../models/activity';
@@ -6,6 +6,7 @@ import {NewActivity} from '../../../../models/new-activity';
 import {ApiService} from '../../../services/api.service';
 import {ArrayUtils} from '../../../util/common';
 import {AbstractPageComponent} from '../../../components/abstract-page.component';
+import {ConfirmDeleteComponent} from '../../../components/dialogs/confirm-delete/confirm-delete.component';
 
 class Filters {
   nameFilter: string;
@@ -23,7 +24,7 @@ class Filters {
   }
 
   public accepts(activity: Activity): boolean {
-    const name: string = activity.keng__id.toLocaleLowerCase();
+    const name: string = activity.getId().toLocaleLowerCase();
     const namef: string = this.nameFilter.toLocaleLowerCase();
     return name.indexOf(namef) >= 0;
   }
@@ -48,6 +49,9 @@ export class ActivitiesComponent extends AbstractPageComponent {
   filteredActivities: Activity[] = [];
   selectedActivities: Activity[] = [];
   filters: Filters = new Filters();
+  private activityNameForDelete: string;
+
+  @ViewChild(ConfirmDeleteComponent) confirmDeleteDialog: ConfirmDeleteComponent;
 
   constructor(private router: Router, route: ActivatedRoute, private apiService: ApiService) {
     super(route);
@@ -71,7 +75,7 @@ export class ActivitiesComponent extends AbstractPageComponent {
       }
     }
     this.filteredActivities.sort( (a1: Activity, a2: Activity) => {
-      let rval: number = a1.keng__id.localeCompare(a2.keng__id);
+      let rval: number = a1.getId().localeCompare(a2.getId());
       if (this.filters.sortDirection === 'DESC') {
         rval *= -1;
       }
@@ -84,13 +88,29 @@ export class ActivitiesComponent extends AbstractPageComponent {
   }
 
   public onSelected(activity: Activity): void {
-    // console.info("[ActivitiesComponent] Caught the onActivitySelected event!  Data: %o", activity);
+    // Only allow one item to be selected
+    this.selectedActivities.shift();
     this.selectedActivities.push(activity);
   }
 
   public onDeselected(activity: Activity): void {
-    // console.info("[ActivitiesComponent] Caught the onActivityDeselected event!  Data: %o", activity);
-    this.selectedActivities.splice(this.selectedActivities.indexOf(activity), 1);
+    // Only one item is selected at a time
+    this.selectedActivities.shift();
+    // this.selectedConnections.splice(this.selectedConnections.indexOf(connection), 1);
+  }
+
+  public onEdit(activityName: string): void {
+    const link: string[] = [ '/activities/edit-activity' ];
+    this.router.navigate(link);
+  }
+
+  public onDelete(activityName: string): void {
+    this.activityNameForDelete = activityName;
+    this.confirmDeleteDialog.open();
+  }
+
+  public onStart(activityName: string): void {
+    alert('Start activity ' + activityName);
   }
 
   public isFiltered(): boolean {
@@ -123,11 +143,10 @@ export class ActivitiesComponent extends AbstractPageComponent {
    * Called to delete all selected APIs.
    */
   public deleteActivity(): void {
-    const itemsToDelete: Activity[] = ArrayUtils.intersect(this.selectedActivities, this.filteredActivities);
-    const selectedActiv = itemsToDelete[0];
+    const selectedActiv =  this.filterActivities().find(x => x.getId() === this.activityNameForDelete);
 
     const activityToDelete: NewActivity = new NewActivity();
-    activityToDelete.name = selectedActiv.keng__id;
+    activityToDelete.setName(selectedActiv.getId());
 
     // Note: we can only delete selected items that we can see in the UI.
     console.log('[ActivitiesPageComponent] Deleting selected Activity.');

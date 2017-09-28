@@ -32,6 +32,9 @@ export class ActivitiesCardsComponent {
   @Output() onActivitySelected: EventEmitter<Activity> = new EventEmitter<Activity>();
   @Output() onActivityDeselected: EventEmitter<Activity> = new EventEmitter<Activity>();
   @Output() onTagSelected: EventEmitter<string> = new EventEmitter<string>();
+  @Output() onStartActivity: EventEmitter<string> = new EventEmitter<string>();
+  @Output() onEditActivity: EventEmitter<string> = new EventEmitter<string>();
+  @Output() onDeleteActivity: EventEmitter<string> = new EventEmitter<string>();
 
   /**
    * Constructor.
@@ -48,6 +51,18 @@ export class ActivitiesCardsComponent {
 
   public isSelected(activity: Activity): boolean {
     return this.selectedActivities.indexOf(activity) !== -1;
+  }
+
+  public startActivity(activityName: string): void {
+    this.onStartActivity.emit(activityName);
+  }
+
+  public editActivity(activityName: string): void {
+    this.onEditActivity.emit(activityName);
+  }
+
+  public deleteActivity(activityName: string): void {
+    this.onDeleteActivity.emit(activityName);
   }
 
   public selectTag(tag: string, event: MouseEvent): void {
